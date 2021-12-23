@@ -74,7 +74,46 @@ Now we can push our changes to Github repository we created. Before that create 
 
 #  Create Our Server (Amazone EC2 instance) and login using visual studio code
 
-https://oracle-base.com/articles/vm/aws-ec2-installation-of-oracle
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
 
 https://medium.com/@christyjacob4/using-vscode-remotely-on-an-ec2-instance-7822c4032cff
 
+# Deploy NodeJS App on Server
+Now we need to deploy our application in our ec2 server. to do that, we are going to create a new user.
+   ```sh
+   ssh root@SERVER.IP
+   adduser <lastname>
+   usermod -a -G sudo <username>
+   su — username
+   ```
+Generate an SSH key pair 
+   ```sh
+   ssh-keygen -t rsa
+   cat ~/.ssh/id_rsa.pub
+   ```
+
+Run below commands to give that user login access via SSH without a password. then you can easily log in to the server by running ssh @SERVER.IP.
+   ```sh
+   cd
+   mkdir .ssh
+   chmod 700 .ssh/
+   vim ~/.ssh/authorized_keys # here paste your local ssh key as we did earlier
+   chmod 600 ~/.ssh/*
+   ```
+Now install the git in the server. Then pull the source code and run it on the server.
+   ```sh
+   sudo apt-get install git
+   ssh-keygen
+   cat ~/.ssh/id_rsa.pub #copy the text
+   ```
+Now we copied our new user ssh key. just paste it as a Github repository deploy key. then clone the repository and run it on the server.
+   ```sh
+   git clone [git@github.com](mailto:git@github.com):<username>/node-github-demo.git
+   cd node-github-demo
+   npm install --production
+   sudo ufw allow 7000 # this will open port 7000 to access via web
+   sudo npm install pm2 -g
+   pm2 start index.js --name node-app
+   ```
+
+Now our app is running through PM2 as node-app. just got to **http://SERVER.IP:7000** to check that.
