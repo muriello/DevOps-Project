@@ -32,5 +32,23 @@ There are also a few ways to install Git on Windows. The most official build is 
 
 To get an automated installation you can use the Git Chocolatey package. Note that the Chocolatey package is community maintained.
 
+# About Git usernames
+You can change the name that is associated with your Git commits using the git config command. The new name you set will be visible in any future commits you push to GitHub from the command line. If you'd like to keep your real name private, you can use any text as your Git username.
 
+Changing the name associated with your Git commits using git config will only affect future commits and will not change the name used for past commits.
 
+#### Setting your Git username for every repository on your computer 
+1) Open Git Bash.
+2) Set a Git username:
+   ```sh
+   git config --global user.name "Mona Lisa"
+   ```
+3) Confirm that you have set the Git username correctly:
+   ```sh
+   git config --global user.name
+   > Mona Lisa
+   ```
+
+ #### Setting your commit email address
+ You can set the email address that is used to author commits on GitHub.com and on your computer using the this link: 
+ https://docs.github.com/en/articles/setting-your-commit-email-address
