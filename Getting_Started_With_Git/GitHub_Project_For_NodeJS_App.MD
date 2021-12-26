@@ -6,7 +6,7 @@ As the first thing in this guide, we are going to create a NodeJS application lo
 
 1. Now let’s clone the repository and navigate to it:
    ```sh
-   git clone [git@github.com](mailto:git@github.com):<username>/node-app
+   git clone https://github.com/<username>/node-app.git
    cd node-app 
    ```
 2. Then run below commands to create package.json file and add the required dependencies and other content and then run following command to install the dependencies. Here are some descriptions of the packages that we use.
@@ -75,7 +75,7 @@ Now we can push our changes to Github repository we created. Before that create 
 # Deploy NodeJS App on Server
 Now we need to deploy our application in our ec2 server. to do that, we are going to :
 
-1. ***Create Our Server (Amazone EC2 instance)*** and login using visual studio code 
+1. ***Create Our Server (Amazon EC2 instance)*** and login using visual studio code 
    ```sh
    https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
 
@@ -111,7 +111,7 @@ Now we need to deploy our application in our ec2 server. to do that, we are goin
    ```
 6. Now we copied our new user ssh key. just paste it as a Github repository deploy key. then clone the repository and run it on the server.
    ```sh
-   git clone [git@github.com](mailto:git@github.com):<username>/node-github-demo.git
+   git clone https://github.com/<username>/node-app.git
    cd node-github-demo
    npm install --production
    sudo ufw allow 7000 # this will open port 7000 to access via web

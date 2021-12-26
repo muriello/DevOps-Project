@@ -1,5 +1,6 @@
-In this tutorial, we see how we connect to GitHub with SSH, for transferring data securely over GitHub. SSH or Secure Shell provides a secure way of connecting to another client/host. It encrypts the data transferred over the network giving an additional layer of security.
 # Steps to Connect to Github with SSH
+In this tutorial, we see how we connect to GitHub with SSH, for transferring data securely over GitHub. SSH or Secure Shell provides a secure way of connecting to another client/host. It encrypts the data transferred over the network giving an additional layer of security.
+
 Let’s now go over the steps to connect to Github with SSH on our Linux machine.
 #### 1. Generate the SSH key
 
