@@ -72,27 +72,30 @@ Now we can push our changes to Github repository we created. Before that create 
    git push origin master
    ```
 
-#  Create Our Server (Amazone EC2 instance) and login using visual studio code
-
-https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
-
-https://medium.com/@christyjacob4/using-vscode-remotely-on-an-ec2-instance-7822c4032cff
-
 # Deploy NodeJS App on Server
-Now we need to deploy our application in our ec2 server. to do that, we are going to create a new user.
+Now we need to deploy our application in our ec2 server. to do that, we are going to :
+
+1. ***Create Our Server (Amazone EC2 instance)*** and login using visual studio code 
+   ```sh
+   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
+
+   https://medium.com/@christyjacob4/using-vscode-remotely-on-an-ec2-instance-7822c4032cff
+   ```
+
+2. Create a new user
    ```sh
    ssh root@SERVER.IP
    adduser <lastname>
    usermod -a -G sudo <username>
    su — username
    ```
-Generate an SSH key pair 
+3. Generate an SSH key pair 
    ```sh
    ssh-keygen -t rsa
    cat ~/.ssh/id_rsa.pub
    ```
 
-Run below commands to give that user login access via SSH without a password. then you can easily log in to the server by running ssh @SERVER.IP.
+4. Run below commands to give that user login access via SSH without a password. then you can easily log in to the server by running ssh @SERVER.IP.
    ```sh
    cd
    mkdir .ssh
@@ -100,13 +103,13 @@ Run below commands to give that user login access via SSH without a password. th
    vim ~/.ssh/authorized_keys # here paste your local ssh key as we did earlier
    chmod 600 ~/.ssh/*
    ```
-Now install the git in the server. Then pull the source code and run it on the server.
+5. Now install the git in the server. Then pull the source code and run it on the server.
    ```sh
    sudo apt-get install git
    ssh-keygen
    cat ~/.ssh/id_rsa.pub #copy the text
    ```
-Now we copied our new user ssh key. just paste it as a Github repository deploy key. then clone the repository and run it on the server.
+6. Now we copied our new user ssh key. just paste it as a Github repository deploy key. then clone the repository and run it on the server.
    ```sh
    git clone [git@github.com](mailto:git@github.com):<username>/node-github-demo.git
    cd node-github-demo
