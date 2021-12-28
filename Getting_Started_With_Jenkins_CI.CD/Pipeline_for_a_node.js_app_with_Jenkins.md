@@ -1,9 +1,9 @@
-### How to set up CI/CD Pipeline for a node.js app with Jenkins
+## How to set up CI/CD Pipeline for a node.js app with Jenkins
 
-##### What is CI/CD?
+### What is CI/CD?
 Continuous Integration and Continuous Deployment are two modern software development practices. Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. Continuous Deployment (CD) can be thought of as an extension of continuous integration, and is the process of automatically deploying an application after CI is successful. The goal is to minimize lead time; the time elapsed between development writing one new line of code and this new code being used by live users in production.
 
-##### Why CI/CD?
+### Why CI/CD?
 There many benefits for CI/CD practices. I am not going to talk about each benefit in detail but I would like to highlight few of them here:
 
 ***Continuous Integration Benefits:***
@@ -18,10 +18,10 @@ There many benefits for CI/CD practices. I am not going to talk about each benef
 - Customers see a continuous stream of improvements
 - Expedite development as there’s no need to pause development for releases
 
-##### What are we going to build?
+### What are we going to build?
 We are going to build a simple Node application and host it on DigitalOcean instance. In addition, we are going to configure an automation server and host Jenkins on a separate DigitalOcean instance. Jenkins will help us to automate the CI/CD process. On every code change from our Node app repository Jenkins will get notified and it will pull the changes into our Jenkins Server (step 1), install dependencies (step 2) and run the integration test (step 3). If all tests pass, Jenkins is going to deploy the app to the node server (step 4). If it fails, a developer will be notified.
 
-##### Creating a Node App
+#### Creating a Node App
 Before we write any CI/CD pipeline we need an application to test and deploy. We are going to build a simple node.js application that responds with “hello world” text. First, let’s set up our GitHub repository for this project.
 
 ***Set GitHub Repository***
@@ -101,7 +101,7 @@ node index.js
 
 You can view your app on your browser when you navigate to *http://localhost:3000*
 
-##### Writing Tests
+#### Writing Tests
 
 We are ready to write our first integration test. Our test is going to navigate to the site root (“/”) and verify that the page responds with the text “hello world”.
 
@@ -156,7 +156,7 @@ git commit -m ‘simple node app with test’
 git push origin master
 ```
 
-##### Serve Node App 
+#### Serve Node App 
 
 We are going to host our node app on a server so the entire world can see our masterpiece. We will use DigitalOcean as our hosting provider. DigitalOcean provides an easy way to configure servers and spin new instances.
 
@@ -254,7 +254,7 @@ pm2 start index.js
 
 Now our node server is configured and running.
 
-##### Set Up Jenkins Server
+#### Set Up Jenkins Server
 
 ***Creating Jenkins Droplet*** 
 
@@ -374,7 +374,7 @@ and select **Just the Push Event** option. Click the Add webhook button.
 
 Let’s test what we have so far. Go to your node-app project on your machine and change the version in the package.json to 0.0.2. Commit and push this change to GitHub. After you push, go to your Jenkins job on the browser and observe that the Jenkins job started and completed successfully.
 
-##### Deployment
+#### Deployment
 
 The last piece of the puzzle is deploying our node application into the node-app server when our test passes.
 
