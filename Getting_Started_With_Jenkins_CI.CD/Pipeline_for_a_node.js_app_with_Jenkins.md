@@ -1,4 +1,4 @@
-#### How to set up CI/CD Pipeline for a node.js app with Jenkins
+### How to set up CI/CD Pipeline for a node.js app with Jenkins
 
 ##### What is CI/CD?
 Continuous Integration and Continuous Deployment are two modern software development practices. Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. Continuous Deployment (CD) can be thought of as an extension of continuous integration, and is the process of automatically deploying an application after CI is successful. The goal is to minimize lead time; the time elapsed between development writing one new line of code and this new code being used by live users in production.
