@@ -91,8 +91,8 @@ Our app is going to respond with “hello world” when requests hitting our roo
 And that’s our app!
 
 Here is the final folder structure:
-<img src="/images/nodejs_app_folder_structure.png">
 
+<img src="/images/nodejs_app_folder_structure.png">
 
 
 Now we are ready to run our app:
