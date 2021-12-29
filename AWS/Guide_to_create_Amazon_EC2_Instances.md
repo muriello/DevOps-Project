@@ -22,21 +22,21 @@ It’s going to open a page requesting your username or email. Type your passwor
 
 ### *Step 3*
 
-This it’s what the AWS console looks like:
+This is what the AWS console looks like:
 
-<img src="/images/aws_select_ec2.png">
+<img src="/images/aws_console_look.png">
 
 ### *Step 4*
 
 Click on EC2.
 
-<img src="/images/aws_ec2_dashboard.png">
+<img src="/images/aws_select_ec2.png">
 
 ### *Step 5*
 
 This is how the EC2 Dashboard looks.
 
-<img src="/images/aws_sign_in2.png">
+<img src="/images/aws_ec2_dashboard.png">
 
 ### *Step 6*
 
@@ -109,8 +109,6 @@ A Summary of all the setting that you have set it’s going to be shown on scree
 ### *Step 17*
 
 A key? This little thing is what you need to be able to access your brand new instance. Give it a name and click the button “Download Key Pair.” Then, save that file because you are not going to be able to get it in another time. AWS doesn’t store keys, so if you lose it, you are going to lose access to your instance.
-
-<img src="/images/aws_sign_in2.png">
 
 ### *Step 18*
 
