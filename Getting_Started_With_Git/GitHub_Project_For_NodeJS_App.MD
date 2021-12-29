@@ -76,11 +76,11 @@ Now we can push our changes to Github repository we created. Before that create 
 Now we need to deploy our application in our ec2 server. to do that, we are going to :
 
 1. ***Create Our Server (Amazon EC2 instance)*** and login using visual studio code 
-   ```sh
+   
    https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
 
    https://medium.com/@christyjacob4/using-vscode-remotely-on-an-ec2-instance-7822c4032cff
-   ```
+   
 
 2. Create a new user
    ```sh
