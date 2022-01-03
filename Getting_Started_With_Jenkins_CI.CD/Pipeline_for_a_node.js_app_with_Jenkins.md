@@ -160,28 +160,11 @@ git push origin master
 
 ### Serve Node App 
 
-We are going to host our node app on a server so the entire world can see our masterpiece. We will use DigitalOcean as our hosting provider. DigitalOcean provides an easy way to configure servers and spin new instances.
+We are going to host our node app on a server so the entire world can see our masterpiece. We will use [AWS](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md) as our hosting provider. AWS provides an easy way to configure servers and spin new instances.
 
-***Creating Node Droplet***
-Sign up and log in into your DigitalOcean account.
+***Creating[Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)***
 
-- Click on Create new droplet button.
-- Choose an image: Click on the one click app tab and select node JS from the list
-- Choose a size: 1GB (The cheapest one)
-- Choose a datacenter region: Chose the closest to you. I choose New York Zone 3
-- Add your SSH keys: Add your local machine SSH key. If you don’t have SSH key follow this to create one. This command will copy your SSH public key and paste it into the textfield
-
-```sh
-pbcopy < ~/.ssh/id_rsa.pub
-```
-
-- Choose a hostname: name it “nodejs-app”
-- Click the create button
-
-The droplet will be ready in few seconds.
-<img src="/images/nodejs_app_server_droplets.png">
-
-***Nodejs-app Server Configuration***
+***Nodejs-app Server (EC2 Instance) Configuration***
 
 Let’s put the DevOps hat on and set up our node server
 
@@ -213,7 +196,7 @@ su — username
 
 ***Deploy the node-app***
 
-Our DigitalOcean server comes with Node but not Git. Lets install git using app-get: 
+check if the server has Node and git Git installed. if not install git using app-get: 
 
 ```sh
 sudo apt-get install git
@@ -231,16 +214,6 @@ Navigate into the project folder and install app dependencies:
 cd node-app
 npm install — production
 ```
-
-Before we can access our app on the browser we need to complete an additional step. As you recall we are running our app on port 3000 by default. DigitalOcean firewall blocks clients accessing any port but 80. Thankfully Ubuntu includes UFW firewall configuration tool that adds firewall rule to unblock specific ports.
-
-Let’s unblock port 3000 and run our app:
-
-```sh
-sudo ufw allow 3000
-node index.js
-```
-
 Now you can access your node app by appending the PORT to your IP address:
 
 *http://NODE.SERVER.IP:3000*
@@ -258,11 +231,9 @@ Now our node server is configured and running.
 
 ### Set Up Jenkins Server
 
-***Creating Jenkins Droplet*** 
+***Creating Jenkins [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)*** 
 
-Let’s start by creating a second DigitalOcean Droplet that will serve our Jenkins app. Follow the instructions under ***Creating Node Droplet*** section above and choose ***“jenkins-app”*** as your hostname. You will end up with 2 droplets:
-<img src="/images/jenkins_server_droplets.png">
-
+Let’s start by creating a second Amazon EC2 instance that will serve our Jenkins app. Follow  ***[this link](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)*** and choose ***“jenkins-app”*** as your hostname.
 
 ***Create New User***
 
@@ -306,10 +277,6 @@ sudo systemctl status jenkins
 ```
 
 Jenkins run on port 8080. Remember the Firewall? Lets open the port:
-
-```sh
-sudo ufw allow 8080
-```
 
 And now we can access Jenkins on the browser by navigating to:
 
