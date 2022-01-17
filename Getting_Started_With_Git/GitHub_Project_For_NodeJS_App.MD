@@ -138,13 +138,11 @@ Now we need to deploy our application in our ec2 server. to do that, we are goin
    cd node-app
    npm install --production
    ```
-   Before we can access our app on the browser we need to complete an additional step. As you recall we are running our app on port 3000 by default. DigitalOcean firewall blocks clients accessing any port but 80. Thankfully Ubuntu includes UFW firewall configuration tool that adds firewall rule to unblock specific ports.
+   Before we can access our app on the browser we need to complete an additional step. As you recall we are running our app on port 7000 by default. EC2 firewall blocks clients accessing any port but 80. Thankfully Ubuntu includes UFW firewall configuration tool that adds firewall rule to unblock specific ports.
 
 9. Let’s unblock port 7000 and run our app: 
    ```sh
    sudo ufw allow 7000 # this will open port 7000 to access via web
-   sudo npm install pm2 -g
-   pm2 start index.js --name node-app
    ```
 
 Now our app is running through PM2 as node-app. just got to **http://SERVER.IP:7000** to check that.
