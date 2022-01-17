@@ -76,42 +76,85 @@ Now we can push our changes to Github repository we created. Before that create 
 Now we need to deploy our application in our ec2 server. to do that, we are going to :
 
 1. ***Create Our Server [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)*** and login using Mobaxterm 
-   
-2. Create a new user
+
+2. Open your terminal on your local machine and login into your nodejs-app server as a root user:
    ```sh
    ssh root@SERVER.IP
-   adduser <lastname>
-   usermod -a -G sudo <username>
-   su — username
-   ```
-3. Generate an SSH key pair 
-   ```sh
-   ssh-keygen -t rsa
-   cat ~/.ssh/id_rsa.pub
-   ```
 
-4. Run below commands to give that user login access via SSH without a password. then you can easily log in to the server by running ssh @SERVER.IP.
-   ```sh
-   cd
-   mkdir .ssh
-   chmod 700 .ssh/
-   vim ~/.ssh/authorized_keys # here paste your local ssh key as we did earlier
-   chmod 600 ~/.ssh/*
    ```
-5. Now install the git in the server. Then pull the source code and run it on the server.
+3. Now let’s create a new user to do the server configuration work and name it after your last name:
+   ```sh
+   adduser <lastname>
+
+   ```
+4. Choose user password and follow the prompts. Before we are switching to our new user we need to give him sudo privileges:
+   ```sh
+   usermod -a -G sudo appuser
+
+   ```
+5. Now you can switch to your new user.
+   ```sh
+   su — username
+
+   ```  
+6. Our ec2 server does not come with Node and Git. Lets install node and git using app-get:
+   
+   - Installing Node.js with Apt from the Default Repositories. To get this version, you can use the apt package manager. Refresh your local package index first by typing 
+   ```sh
+   sudo apt update
+
+   ```  
+   Then install Node.js:
+   ```sh
+   sudo apt install nodejs
+
+   ```  
+   Check that the install was successful by querying node for its version number:
+   ```sh
+   node -v
+   ``` 
+   If the package in the repositories suits your needs, this is all you need to do to get set up with Node.js. In most cases, you’ll also want to also install npm, the Node.js package manager. You can do this by installing the npm package with apt:
+   ```sh
+   sudo apt install npm
+   ```
+   This will allow you to install modules and packages to use with Node.js.At this point you have successfully installed Node.js and npm using apt and the default Ubuntu software repositories. 
+
+7. Lets install git using app-get:
    ```sh
    sudo apt-get install git
-   ssh-keygen
-   cat ~/.ssh/id_rsa.pub #copy the text
    ```
-6. Now we copied our new user ssh key. just paste it as a Github repository deploy key. then clone the repository and run it on the server.
+   Check that the install was successful by querying git for its version number:
+   ```sh
+   git --version
+   ``` 
+
+8. Clone our node app repo
    ```sh
    git clone https://github.com/<username>/node-app.git
-   cd node-github-demo
+
+   ```
+   Navigate into the project folder and install app dependencies:
+   ```sh
+   cd node-app
    npm install --production
+   ```
+   Before we can access our app on the browser we need to complete an additional step. As you recall we are running our app on port 3000 by default. DigitalOcean firewall blocks clients accessing any port but 80. Thankfully Ubuntu includes UFW firewall configuration tool that adds firewall rule to unblock specific ports.
+
+9. Let’s unblock port 7000 and run our app: 
+   ```sh
    sudo ufw allow 7000 # this will open port 7000 to access via web
    sudo npm install pm2 -g
    pm2 start index.js --name node-app
    ```
 
 Now our app is running through PM2 as node-app. just got to **http://SERVER.IP:7000** to check that.
+
+# Running Node App Forever
+Starting node app like above is good for development purposes but not in production. In case our node instance crash we need a process that will do the auto restart. We are going to use [PM2](https://pm2.keymetrics.io/docs/usage/quick-start/) module to help us with this task. PM2 is a general purpose process manager and a production runtime for Node.js apps with a built-in Load Balancer. Let’s install PM2 and start our node instance:
+
+   ```sh
+   sudo npm install pm2@latest -g
+   pm2 start index.js
+   ```
+
+   Now our node server is configured and running.
