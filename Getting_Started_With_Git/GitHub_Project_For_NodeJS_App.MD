@@ -15,11 +15,11 @@ As the first thing in this guide, we are going to create a NodeJS application lo
    npm i express
    npm i mocha supertest --save-dev
    ```
-- **express**: Node framework
+  - **express**: Node framework
 
-- **mocha**: Test framework for NodeJS ( You can choose another testing framework if you wish like Jasmin, Jest, Tape, etc.)
+  - **mocha**: Test framework for NodeJS ( You can choose another testing framework if you wish like Jasmin, Jest, Tape, etc.)
 
-- **supertest**: Provide a high-level abstraction for testing HTTP npm install
+  - **supertest**: Provide a high-level abstraction for testing HTTP npm install
 
 3. Okay, now everything is ready. let’s create a file called **index.js**** to write the code to create an express server and show the **“Hello World”** text as the response of the **“/”** endpoint.
 
