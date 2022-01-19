@@ -275,6 +275,6 @@ git commit -m "add deployment script"
 git push origin master
 ```
 
-After you push you should see Jenkins Job starts. When complete, you should see your changes on *http://NODE.SERVER.IP:3000*
+After you push you should see Jenkins Job starts. When complete, you should see your changes on *http://NODE.SERVER.IP:7000*
 
 And we are DONE!
