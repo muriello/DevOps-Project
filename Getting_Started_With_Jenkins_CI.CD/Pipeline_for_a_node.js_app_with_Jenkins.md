@@ -18,118 +18,12 @@ There many benefits for CI/CD practices. I am not going to talk about each benef
 - Customers see a continuous stream of improvements
 - Expedite development as there’s no need to pause development for releases
 
-### What are we going to build?
-We are going to build a simple Node application and host it on DigitalOcean instance. In addition, we are going to configure an automation server and host Jenkins on a separate DigitalOcean instance. Jenkins will help us to automate the CI/CD process. On every code change from our Node app repository Jenkins will get notified and it will pull the changes into our Jenkins Server (step 1), install dependencies (step 2) and run the integration test (step 3). If all tests pass, Jenkins is going to deploy the app to the node server (step 4). If it fails, a developer will be notified.
+### What are we going to build ?
+Before we write any CI/CD pipeline we need an application to test and deploy.In [Getting_Started_With_Git](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/Getting_Started_With_Git/GitHub_Project_For_NodeJS_App.MD), We built a simple node.js application that responds with “hello world” and hosted it on AWS ec2 instance. In addition, we are going to configure an automation server and host Jenkins on a separate ec2 instance. Jenkins will help us to automate the CI/CD process. On every code change from our Node app repository Jenkins will get notified and it will pull the changes into our Jenkins Server (step 1), install dependencies (step 2) and run the integration test (step 3). If all tests pass, Jenkins is going to deploy the app to the node server (step 4). If it fails, a developer will be notified.
 
-### Creating a Node App
-Before we write any CI/CD pipeline we need an application to test and deploy. We are going to build a simple node.js application that responds with “hello world” text. First, let’s set up our GitHub repository for this project.
+<img src="/images/jenkins_workflow.png">
 
-***Set GitHub Repository***
-Create new repository under your GitHub account and name it “node-app”.
-
-- You can choose public or private repo
-- check the Initialize this repository with a README checkbox
-- Select node in the Add .gitignore drop-down menu
-- Click Create repository button
-
-Now let’s clone our node-app repo to our local computer and navigate to it:
-
-```sh
-git clone git@github.com:<github username>/node-app.git
-cd node-app
-```
-
-***Create Node.js App***
-The first step when building a node app is creating package.json file. In this file, we list the application dependencies. Create a new file in your project root called package.json and copy paste the following content into it:
-
-```sh
-{
- “name”: “node-app”,
- “description”: “hello jenkins test app”,
- “version”: “0.0.1”,
- “private”: true,
- “dependencies”: {
-    “express”: “3.12.0”
- },
- “devDependencies”: {
-    “mocha”: “1.20.1”,
-    “supertest”: “0.13.0”
- }
-}
-```
-- ***express:*** Node framework
-
-- ***mocha:*** Test framework for node ( You can choose other testing framework if you wish like Jasmin, Jest, Tape etc.)
-
-- ***supertest:*** Provide a high-level abstraction for testing HTTP
-
-After we defined our dependencies in package.json file we are ready to install them:
-
-```sh
-npm install
-```
-
-Awesome! Ready to write some code? Create a new file in the project root called *index.js* and copy paste the following code: 
-
-```sh
-//importing node framework
-var express = require(‘express’);
- 
-var app = express();
-//Respond with "hello world" for requests that hit our root "/"
-app.get(‘/’, function (req, res) {
- res.send(‘hello world’);
-});
-//listen to port 3000 by default
-app.listen(process.env.PORT || 3000);
- 
-module.exports = app;
-```
-
-Our app is going to respond with “hello world” when requests hitting our root URL (“/“).
-
-And that’s our app!
-
-Here is the final folder structure:
-
-<img src="/images/nodejs_app_folder_structure.png">
-
-
-Now we are ready to run our app:
-
-```sh
-node index.js
-```
-
-You can view your app on your browser when you navigate to *http://localhost:3000*
-
-### Writing Tests
-
-We are ready to write our first integration test. Our test is going to navigate to the site root (“/”) and verify that the page responds with the text “hello world”.
-
-Under a new directory /test/ create test.js. Copy and paste the following code:
-
-```sh
-var request = require(‘supertest’);
-var app = require(‘../index.js’);
-describe(‘GET /’, function() {
- it(‘respond with hello world’, function(done) {
- //navigate to root and check the the response is "hello world"
- request(app).get(‘/’).expect(‘hello world’, done);
- });
-});
-```
-
-We are going to use Mocha to run our test. We installed Mocha as part of our devDependencies in package.json file. To run the test we need to pass Mocha our /test/test.js file as an argument.
-
-```sh
-./node_modules/.bin/mocha ./test/test.js
-```
-
-If you run this command from your project root you will see our test run and pass.
-<img src="/images/run_test_case_output.png">
-
-Looking at figure 1 step #3, we would like Jenkins to execute our integration test after it builds. To achieve that we need to create a shell script in our project that trigger our test.
+Looking at figure above in step 3, we would like Jenkins to execute our integration test after it builds. To achieve that we need to create a shell script in our project that trigger our test.
 
 Make new /**script**/ folder and a file name **test** without the file extension. Copy and paste the following code into the **test** file:
 
@@ -157,77 +51,6 @@ git add .
 git commit -m ‘simple node app with test’
 git push origin master
 ```
-
-### Serve Node App 
-
-We are going to host our node app on a server so the entire world can see our masterpiece. We will use [AWS](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md) as our hosting provider. AWS provides an easy way to configure servers and spin new instances.
-
-***Creating[Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)***
-
-***Nodejs-app Server (EC2 Instance) Configuration***
-
-Let’s put the DevOps hat on and set up our node server
-
-Open your terminal on your local machine and login into your nodejs-app server as a root user:
-
-```sh
-ssh root@NODE.SERVER.IP
-```
-
-Now you loged in as root user which is a super power user. And “with great power comes great responsibilities”.
-
-Since we don’t like responsibilities let’s create a new user to do the server configuration work and name it after your last name:
-
-```sh
-adduser <lastname>
-```
-
-Choose user password and follow the prompts. Before we are switching to our new user we need to give him sudo privileges:
-
-```sh
-usermod -a -G sudo <username>
-
-```
-Now you can switch to your new user.
-
-```sh
-su — username
-```
-
-***Deploy the node-app***
-
-check if the server has Node and git Git installed. if not install git using app-get: 
-
-```sh
-sudo apt-get install git
-```
-
-Clone our node app repo:
-
-```sh
-git clone https://github.com/<username>/node-app.git
-```
-
-Navigate into the project folder and install app dependencies:
-
-```sh
-cd node-app
-npm install — production
-```
-Now you can access your node app by appending the PORT to your IP address:
-
-*http://NODE.SERVER.IP:3000*
-
-***Running Node App Forever***
-
-Starting node app like above is good for development purposes but not in production. In case our node instance crash we need a process that will do the auto restart. We are going to use PM2 module to help us with this task. PM2 is a general purpose process manager and a production runtime for Node.js apps with a built-in Load Balancer. Let’s install PM2 and start our node instance:
-
-```sh
-sudo npm install pm2@latest -g
-pm2 start index.js
-```
-
-Now our node server is configured and running.
 
 ### Set Up Jenkins Server
 
@@ -448,7 +271,7 @@ Commit and push:
 
 ```sh
 git add .
-git commit -m ‘add deployment script’
+git commit -m "add deployment script"
 git push origin master
 ```
 
