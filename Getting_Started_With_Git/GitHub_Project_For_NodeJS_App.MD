@@ -1,5 +1,6 @@
 # What are we going to build?
-We are going to build a simple NodeJS app and host it(in this guide, I am going to use AWS ec2 instance. you can use whatever you want). This guide will show you how to config and work with Github to deploy the NodeJS app to your server. 
+We are going to build a simple NodeJS app and host it (in this guide, I am going to use AWS ec2 instance. Feel free to use whatever you want). This guide will show you how to config and work with Github to deploy the NodeJS app to your server. 
+
 
 # Create a NodeJS App
 As the first thing in this guide, we are going to create a NodeJS application locally. Here we just create a simple application that responds with the “Hello World” text. First, we will use our Github repo we created. This [link](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/creating-a-new-repository) will show how I did it. You can change the settings as you want such as setting private/public accessibility of your repository.
