@@ -242,7 +242,7 @@ We are going to create another shell script that responsible for the deployment.
 
 ```sh
 #!/bin/sh
-ssh ezderman@NODE.SERVER.IP <<EOF
+ssh <username>@NODE.SERVER.IP <<EOF
  cd ~/node-app
  git pull
  npm install — production
