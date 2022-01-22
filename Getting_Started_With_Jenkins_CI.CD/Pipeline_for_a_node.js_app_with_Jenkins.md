@@ -80,7 +80,7 @@ When faced with repetitive technical tasks, finding automation solutions that wo
 
 - Prerequisites
 To follow this tutorial, you will need:
-Oracle JDK 11 installed, following our guidelines on installing specific versions of OpenJDK on Ubuntu 20.04.
+Oracle JDK installed, following our guidelines on [How to Install Java on Ubuntu 20.04] (https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/Getting_Started_With_Jenkins_CI.CD/How%20To%20Install%20Java%20with%20Apt%20on%20Ubuntu%2020.04.md).
 
 - Get Jenkins:
 
