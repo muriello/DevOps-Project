@@ -64,7 +64,7 @@ SSH into the new droplet as root user, create a new user, give it sudo privilege
 
 ```sh
 ssh root@JENKINS.SERVER.IP
-useradd <username> #input the details in the cmd accordingly
+adduser <username> #input the details in the cmd accordingly
 usermod -a -G sudo <username>
 su — <username>
 ```
