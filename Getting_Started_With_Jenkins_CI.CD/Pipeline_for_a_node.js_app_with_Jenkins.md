@@ -87,13 +87,13 @@ Oracle JDK 11 installed, following our guidelines on installing specific version
 First, add the repository key to the system:
 
 ```sh
-$ wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 ```
 After the key is added the system will return with ``` OK```.
 
 Next, let’s append the Debian package repository address to the server’s ```sources.list```:
 ```sh
-$ sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 ```
 After both commands have been entered, we’ll run update so that apt will use the new repository.
 ```sh
