@@ -120,12 +120,38 @@ Since systemctl doesn’t display status output, we’ll use the status command 
 sudo systemctl status jenkin
 ```
 
+- Opening the Firewall
 Jenkins run on port 8080. Remember the Firewall? Lets open the port:
 
-And now we can access Jenkins on the browser by navigating to:
+To set up a UFW firewall, Creating Jenkins [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)***  Step 15- comfigure security group. By default, Jenkins runs on port 8080.
+
+ Next, We’ll open that port using ufw:
 
 ```sh
-http://JENKINS.SERVER.IP:8080
+sudo ufw allow 8080
+```
+
+***Note:*** If the firewall is inactive, the following commands will allow OpenSSH and enable the firewall:
+
+```sh
+sudo ufw allow OpenSSH
+sudo ufw enable
+```
+
+Check ufw’s status to confirm the new rules:
+
+```sh
+sudo ufw status
+```
+You’ll notice that traffic is allowed to port 8080 from anywhere
+
+With Jenkins installed and our firewall configured, we can complete the installation stage and dive into Jenkins setup.
+
+
+To set up your installation, visit Jenkins on its default port, 8080, using your server domain name or IP address: 
+
+```sh
+http://your_server_ip_or_domain:8080
 ```
 
 ***Configure Jenkins***
