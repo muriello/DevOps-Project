@@ -85,7 +85,7 @@ Now we need to deploy our application in our ec2 server. to do that, we are goin
    ```
 3. Now let’s create a new user to do the server configuration work and name it after your last name:
    ```sh
-   useradd <username> "input the details in the cmd accordingly"
+   useradd <username> #input the details in the cmd accordingly
 
    ```
 4. Choose user password and follow the prompts. Before we are switching to our new user we need to give him sudo privileges:

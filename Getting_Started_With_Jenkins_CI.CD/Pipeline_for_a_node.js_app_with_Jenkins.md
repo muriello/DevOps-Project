@@ -48,7 +48,7 @@ Boom! integration test is ready and now we ready to push our code to GitHub:
 
 ```sh
 git add .
-git commit -m ‘simple node app with test’
+git commit -m "simple node app with test"
 git push origin master
 ```
 
@@ -64,7 +64,7 @@ SSH into the new droplet as root user, create a new user, give it sudo privilege
 
 ```sh
 ssh root@JENKINS.SERVER.IP
-useradd <username> "input the details in the cmd accordingly"
+useradd <username> #input the details in the cmd accordingly
 usermod -a -G sudo <username>
 su — <username>
 ```
