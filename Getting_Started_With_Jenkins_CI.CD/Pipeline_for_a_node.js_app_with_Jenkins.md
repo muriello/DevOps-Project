@@ -160,7 +160,7 @@ When you navigate to Jenkins homepage you probably noticed additional step you n
 Copy the Jenkins password hosted on your Jenkins server
 
 ```sh
-sudo vim /var/lib/jenkins/secrets/initialAdminPassword
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
 Paste the the password into the text field. You are ready to set up Jenkins. First, we would like to add GitHub plugin. From the left menu select **manage Jenkins** and go to **manage plugins.** On the plugins page select the available tab and look for **GitHub plugin**, select its checkbox and click the **Download now and install after restart** button.
