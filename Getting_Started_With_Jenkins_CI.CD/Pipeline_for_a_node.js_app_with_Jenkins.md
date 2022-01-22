@@ -76,27 +76,48 @@ sudo apt-get install git
 ```
 
 ***Install Jenkins***
+When faced with repetitive technical tasks, finding automation solutions that work can be a chore. With Jenkins, an open-source automation server, you can efficiently manage tasks from building to deploying software. Jenkins is Java-based, installed from Ubuntu packages or by downloading and running its web application archive (WAR) file — a collection of files that make up a complete web application to run on a server.
+
+- Prerequisites
+To follow this tutorial, you will need:
+Oracle JDK 11 installed, following our guidelines on installing specific versions of OpenJDK on Ubuntu 20.04.
 
 - Get Jenkins:
 
+First, add the repository key to the system:
+
 ```sh
-//add the repository key to the system
-wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
-//append the Debian package repository address to the server's echo deb https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
-//update
-sudo apt-get update
+$ wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+```
+After the key is added the system will return with ``` OK```.
+
+Next, let’s append the Debian package repository address to the server’s ```sources.list```:
+```sh
+$ sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+```
+After both commands have been entered, we’ll run update so that apt will use the new repository.
+```sh
+sudo apt update
 ```
 
-- Install Jenkins:
+- Install Jenkins: 
+
+Finally, we’ll install Jenkins and its dependencies.
 
 ```sh
-sudo apt-get install jenkins
+sudo apt install jenkins
 ```
 
-- Start Jenkins:
+- Start Jenkins: 
 
 ```sh
-sudo systemctl status jenkins
+sudo systemctl start jenkins
+```
+
+Since systemctl doesn’t display status output, we’ll use the status command to verify that Jenkins started successfully
+
+```sh
+sudo systemctl status jenkin
 ```
 
 Jenkins run on port 8080. Remember the Firewall? Lets open the port:
