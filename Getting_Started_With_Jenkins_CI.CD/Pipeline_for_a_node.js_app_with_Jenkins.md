@@ -29,7 +29,7 @@ Make new /**script**/ folder and a file name **test** without the file extension
 
 ```sh
 #!/bin/sh
-./node_modules/.bin/mocha ./test/test.js
+npm test
 ```
 
 Grant executable permissions:
@@ -191,6 +191,7 @@ https://github.com/<username>/node-app.git
 
 ```sh
 npm install
+chmod +x script/*
 ./script/test
 ```
 
@@ -213,7 +214,7 @@ and select **Just the Push Event** option. Click the Add webhook button.
 
 Let’s test what we have so far. Go to your node-app project on your machine and change the version in the package.json to 0.0.2. Commit and push this change to GitHub. After you push, go to your Jenkins job on the browser and observe that the Jenkins job started and completed successfully.
 
-#### Deployment
+### Deployment
 
 The last piece of the puzzle is deploying our node application into the node-app server when our test passes.
 
@@ -221,19 +222,21 @@ The last piece of the puzzle is deploying our node application into the node-app
 
 In order to do that, Jenkins Server will need to ssh into the node-app server, clone the repo, install dependencies and restart the server. Lets set up ssh access to Jenkins first.
 
-- When we install Jenkins it automatically created Jenkins user. SSH into our Jenkins server as root user:
-
-```sh
-ssh root@JENKINS.SERVER.IP
-``` 
-
 - Switch to Jenkins user:
 
 ```sh
-su — jenkins
+su — jenkinsuser
+```
+- Check if the SSH key for the client machine already exists. This will prevent overwriting the current configuration. You can use the below command to find out
+```sh
+ls -al ~/.ssh/id_*.pub
 ```
 
-- Generate SSH key:
+If you find an existing key, then you can either skip the SSH key generation steps, override the current setup, or create a backup of the existing key. If the key doesn’t exist, you’ll see the following output:
+
+``` ls: cannot access /users/appsadm/.ssh/id_*.pub: No such file or directory ```
+
+- Next, we can proceed to generate the SSH key.
 
 ```sh
 ssh-keygen -t rsa
@@ -247,39 +250,39 @@ And save the generated key in */var/lib/jenkins/.ssh/id_rsa*
 cat ~/.ssh/id_rsa.pub
 ```
 
-And Copy the output to your clipboard. Now we are ready to put the public key on the nodejs-app server to complete the authentication between Jenkins server and nodejs-app server.
-
-
-- SSH into the nodejs-app server as a root and switch to your user:
+- You’ll need to manually add the contents of the id_rsa.pub file to the remote server’s ~/.ssh/authorized_keys file. On the source method you can display the contents of the id_rsa.pub file by using the vi editor or cat command:
 
 ```sh
-ssh root@NODE.SERVER.IP
-su - <username>
+cat ~/.ssh/id_rsa.pub
 ```
+
+- This would display an output containing the key starting with ssh-rsa. Copy it! Next on the remote server (appserver), login and create the .ssh file if it does not exist.
+
+```sh
+mkdir -p ~/.ssh
+```
+***SSH_public_key*** would be the public key that you copied from the source machine. It will start with ssh-rsa.
 
 - Open the the file where authorized keys are stored:
 
 ```sh
 vim ~/.ssh/authorized_keys
 ```
+And paste the Jenkins public key we just created into that file. Save by pressing the esc button on your keyboard, type **:x** and press **enter.**
 
-And copy paste the Jenkins public key we just created into that file. Save by pressing the esc button on your keyboard, type **:x** and press **enter.**
-
-
-- Set the correct permission on the .ssh folder:
+Once the key is copied, you can provide the required permissions to the remote servers .ssh directory by using chmod command.
 
 ```sh
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
 ```
 
-Before we are moving on lets test our SSH set up. If set up is correct we will be able to *SSH from JENKINS.SERVER.IP* as jenkins user to *<username>@NODE.SERVER.IP* without entering a password
+- With this, we should have successfully activated passwordless SSH, and performed the basic configuration. To test the feature, you can try accessing the remote server via the source server. The command syntax would look like this:
 
 ```sh
-ssh root@JENKINS.SERVER.IP
-su - jenkins
-ssh <username>@NODE.SERVER.IP
+ssh remote_username@remote_IP_Address
 ```
+If everything worked successfully, then you will be able to login automatically without having to enter the password.
 
 *Success!*
 
@@ -289,7 +292,7 @@ We are going to create another shell script that responsible for the deployment.
 
 ```sh
 #!/bin/sh
-ssh <username>@NODE.SERVER.IP <<EOF
+ssh -i ~/.ssh/key.pem -o StrictHostKeyChecking=no <username>@NODE.SERVER.IP <<EOF
  cd ~/node-app
  git pull
  npm install — production
@@ -298,7 +301,7 @@ ssh <username>@NODE.SERVER.IP <<EOF
 EOF
 ```
 
-This script will SSH to the node server, pull changes from GitHub, install dependencies and restart serve.
+This script will SSH to the node server, pull changes from GitHub, install dependencies and restart service.
 Make our new script file executable:
 
 ```sh
