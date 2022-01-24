@@ -239,10 +239,15 @@ If you find an existing key, then you can either skip the SSH key generation ste
 - Next, we can proceed to generate the SSH key.
 
 ```sh
-ssh-keygen -t rsa
+sudo cp -r ~/.ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa
 ```
 
-And save the generated key in */var/lib/jenkins/.ssh/id_rsa*
+- And save the generated private key in */var/lib/jenkins/.ssh/id_rsa*
+
+```sh
+ssh-keygen -t rsa 
+```
+
 
 - Print the SSH key you just created:
 
