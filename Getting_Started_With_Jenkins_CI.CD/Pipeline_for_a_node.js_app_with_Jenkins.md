@@ -204,7 +204,7 @@ We are going to add Git Webhook to inform Jenkins every time a developer push ne
 Go to node-app GitHub, click on the Settings tab, select Webhooks from the left menu and click on the Add Webhooks button. Enter your Jenkins webhook URL under Payload URL:
 
 ```
-*http://JENKINS.SERVER.IP:8080/github-webhook/*
+*http://JENKINS.SERVER.IP:8080/github-webhook/
 
 ```
 
