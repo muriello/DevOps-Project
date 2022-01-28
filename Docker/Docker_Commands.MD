@@ -4,7 +4,7 @@
 
 Docker is an application that simplifies the process of managing application processes in containers. Containers let you run your applications in resource-isolated processes. They’re similar to virtual machines, but containers are more portable, more resource-friendly, and more dependent on the host operating system.
 
-In this tutorial, you’ll install and use Docker Community Edition (CE) on [Ubuntu](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/Docker/Docker%20Installation%20Steps.MD)s You’ll install Docker itself, work with containers and images, and push an image to a Docker Repository.
+In this tutorial, you’ll install and use Docker Community Edition (CE) on [Ubuntu](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/Docker/Docker%20Installation%20Steps.MD). You’ll install Docker itself, work with containers and images, and push an image to a Docker Repository.
 
 
 ### Executing the Docker Command Without Sudo (Optional)
