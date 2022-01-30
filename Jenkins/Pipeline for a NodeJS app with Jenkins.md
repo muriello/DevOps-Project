@@ -62,7 +62,7 @@ Let’s start by creating a second Amazon EC2 instance that will serve our Jenki
 
 Login to the jenkins instance and switch to root user, create a new user, give it sudo privileges and switch to the newly added user:
 
-- Switch to root use
+- Switch to root
 ```sh
 sudo -i
 ```
