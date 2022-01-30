@@ -19,7 +19,7 @@ There many benefits for CI/CD practices. I am not going to talk about each benef
 - Expedite development as there’s no need to pause development for releases
 
 ### What are we going to build ?
-Before we write any CI/CD pipeline we need an application to test and deploy. In [Getting_Started_With_Git](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/Getting_Started_With_Git/GitHub_Project_For_NodeJS_App.MD), We built a [simple node.js application](https://github.com/ValaxyTechDevops/devop-nodejs-app) that responds with “hello world” and hosted it on AWS ec2 instance. In addition, we are going to configure an automation server and host Jenkins on a separate ec2 instance. Jenkins will help us to automate the CI/CD process. On every code change from our Node app repository Jenkins will get notified and it will pull the changes into our Jenkins Server **(step 1)**, install dependencies **(step 2)** and run the integration test **(step 3)**. If all tests pass, Jenkins is going to deploy the app to the node server **(step 4)**. If it fails, a developer will be notified.
+Before we write any CI/CD pipeline we need an application to test and deploy. In [Getting_Started_With_Git]https://github.com/ValaxyTechDevops/DevOps-Project/tree/master/Git%20and%20Github), We built a [simple node.js application](https://github.com/ValaxyTechDevops/devop-nodejs-app) that responds with “hello world” and hosted it on AWS ec2 instance. In addition, we are going to configure an automation server and host Jenkins on a separate ec2 instance. Jenkins will help us to automate the CI/CD process. On every code change from our Node app repository Jenkins will get notified and it will pull the changes into our Jenkins Server **(step 1)**, install dependencies **(step 2)** and run the integration test **(step 3)**. If all tests pass, Jenkins is going to deploy the app to the node server **(step 4)**. If it fails, a developer will be notified.
 
 <img src="/images/jenkins_workflow.png">
 
@@ -54,19 +54,49 @@ git push origin master
 
 ### Set Up Jenkins Server
 
-***Creating Jenkins [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)*** 
+***Creating Jenkins [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide%20to%20create%20Amazon%20EC2%20Instances.md)*** 
 
-Let’s start by creating a second Amazon EC2 instance that will serve our Jenkins app. Follow  ***[this link](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)*** and choose ***“jenkins-app”*** as your hostname.
+Let’s start by creating a second Amazon EC2 instance that will serve our Jenkins app. Follow  ***[this link](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide%20to%20create%20Amazon%20EC2%20Instances.md)*** and choose ***“jenkins-app”*** as your hostname.
 
 ***Create New User***
 
-SSH into the new droplet as root user, create a new user, give it sudo privileges and switch to the newly added user:
+Login to the jenkins instance and switch to root user, create a new user, give it sudo privileges and switch to the newly added user:
 
+- Switch to root use
 ```sh
-ssh root@JENKINS.SERVER.IP
+sudo -i
+```
+- Create a new user
+```sh
 adduser <username> #input the details in the cmd accordingly
+```
+- Give it sudo privileges
+```sh
 usermod -a -G sudo <username>
-su — <username>
+```
+Also, the sudoers file can define privileges such as the commands that can be executed with or without sudo, or if you should be prompted with a password. By default, you should not modify the sudoers file by yourself (the same logic applies to cron jobs for example).
+
+If you were to corrupt this file, you might would not be able to get sudo rights again.
+
+Instead, you are going to use “visudo” : a tool designed to make sure that you don’t make any mistakes
+```sh
+sudo visudo
+```
+```At the end of the file, add a new line for the user.```
+```sh
+username       ALL=(ALL:ALL) ALL
+```
+By saving and exiting the file, the ```username``` will be automatically added to the sudo group.
+
+By default, the account password will be asked every five minutes in order to perform sudo operations.
+
+If you want to remove the password verification, you can simply add the “NOPASSWD” option.
+```sh
+username       ALL=(ALL:ALL) NOPASSWD:ALL
+```
+- switch to the newly added user:
+```sh
+su - username
 ```
 
 Jenkins will need to be able to pull changes from the node app repo, therefore, we need to install git on the instance:
@@ -117,13 +147,13 @@ sudo systemctl start jenkins
 Since systemctl doesn’t display status output, we’ll use the status command to verify that Jenkins started successfully
 
 ```sh
-sudo systemctl status jenkin
+sudo systemctl status jenkins
 ```
 
 - Opening the Firewall
 Jenkins run on port 8080. Remember the Firewall? Lets open the port:
 
-To set up a UFW firewall, Creating Jenkins [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)***  Step 15- comfigure security group. By default, Jenkins runs on port 8080.
+To set up a UFW firewall, Creating Jenkins [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide%20to%20create%20Amazon%20EC2%20Instances.md)***  Step 15- comfigure security group. By default, Jenkins runs on port 8080.
 
  Next, We’ll open that port using ufw:
 
@@ -214,15 +244,16 @@ and select **Just the Push Event** option. Click the Add webhook button.
 
 Let’s test what we have so far. Go to your node-app project on your machine and change the version in the package.json to 0.0.2. Commit and push this change to GitHub. After you push, go to your Jenkins job on the browser and observe that the Jenkins job started and completed successfully.
 
+
 ### Deployment
 
 The last piece of the puzzle is deploying our node application into the node-app server when our test passes.
 
 ***SSH Authentication***
 
-In order to do that, Jenkins Server will need to ssh into the node-app server, clone the repo, install dependencies and restart the server. Lets set up ssh access to Jenkins first.
+In order to do that, Jenkins Server will need to ssh into the node-app server, clone the repo, install dependencies and restart the server. Lets set up ssh access between Jenkins server and nodeapp server first.
 
-- Switch to Jenkins user:
+- On the jenkins Server Switch to Jenkins user:
 
 ```sh
 su — jenkinsuser
@@ -239,15 +270,16 @@ If you find an existing key, then you can either skip the SSH key generation ste
 - Next, we can proceed to generate the SSH key.
 
 ```sh
-sudo cp -r ~/.ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa
+ssh-keygen -t rsa 
 ```
 
 - And save the generated private key in */var/lib/jenkins/.ssh/id_rsa*
 
 ```sh
-ssh-keygen -t rsa 
-```
+sudo mkdir -p /var/lib/jenkins/.ssh/id_rsa
 
+sudo cp -r ~/.ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa
+```
 
 - Print the SSH key you just created:
 
