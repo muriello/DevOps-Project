@@ -4,7 +4,20 @@ Maven is a code build tool which used to convert your code to an artifact. this 
 
 #### Prerequisites
 1. Jenkins server
+2. The Gremlin libraries require Java 8. install java 8 if you dont have it installed yet. 
+   - Enter the following to set Java 8 as the default runtime on your EC2 instance.
+    ```sh
+    sudo /usr/sbin/alternatives --config java
 
+    #When prompted, enter the number for Java 8.
+    ```
+  - When prompted, enter the number for Java 8.
+  - Enter the following to set Java 8 as the default compiler on your EC2 instance.
+    ```sh
+    sudo /usr/sbin/alternatives --config javac
+
+    #When prompted, enter the number for Java 8.
+    ```
 #### Install Maven on Jenkins
 1. Download maven packages https://maven.apache.org/download.cgi onto Jenkins server. In this case, I am using /opt/maven as my installation directory
  - Link : https://maven.apache.org/download.cgi
@@ -25,12 +38,12 @@ Maven is a code build tool which used to convert your code to an artifact. this 
    PATH=<Existing_PATH>:$M2_HOME:$M2
    ```
 #### Checkpoint 
-1. logoff and login to check maven version
+1. logoff as root and login back in to check maven version
   
     ```sh
     mvn --version
     ```
-So far we have completed the installation of maven software to support maven plugin on the jenkins console. Let's jump onto Jenkins to complete the remaining steps. 
+So far we have completed the installation of maven software to support maven plugin on the jenkins console. Now jump onto your Jenkins to complete the remaining steps. 
 
 ### Setup maven on Jenkins console
 1. Install maven plugin without restart  
