@@ -1,5 +1,6 @@
 # DevOps-Project
 guide to set up a ci/cd workflow 
+https://www.ktexperts.com/how-to-install-jenkins-in-amazon-linux-machine/
 
 
 - Launch Jenkins Machine. 
