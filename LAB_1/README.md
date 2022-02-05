@@ -1,5 +1,6 @@
 # LAB_1
-Guide to set up a ci/cd workflow for LAB_1
+
+#### Guide to set up a ci/cd workflow for LAB_1
 
 1) Create an amzon linux instance and install Jenkins with its Dependencies
 
