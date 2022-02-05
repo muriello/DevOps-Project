@@ -88,11 +88,45 @@ Now we need to deploy our application in our ec2 server. to do that, we are goin
    useradd <username> #input the details in the cmd accordingly
 
    ```
-4. Choose user password and follow the prompts. Before we are switching to our new user we need to give him sudo privileges:
-   ```sh
-   usermod -a -G sudo appuser
+4. Choose user password and follow the prompts.
 
-   ```
+ **Before we are switching to our new user we need to give him sudo privileges:**
+   - Switch to root
+```sh
+sudo -i
+```
+- Create a new user
+```sh
+adduser <username> #input the details in the cmd accordingly
+```
+- Give it sudo privileges
+```sh
+usermod -a -G sudo <username>
+```
+Also, the sudoers file can define privileges such as the commands that can be executed with or without sudo, or if you should be prompted with a password. By default, you should not modify the sudoers file by yourself (the same logic applies to cron jobs for example).
+
+If you were to corrupt this file, you might would not be able to get sudo rights again.
+
+Instead, you are going to use “visudo” : a tool designed to make sure that you don’t make any mistakes
+```sh
+sudo visudo
+```
+```At the end of the file, add a new line for the user.```
+```sh
+username       ALL=(ALL:ALL) ALL
+```
+By saving and exiting the file, the ```username``` will be automatically added to the sudo group.
+
+By default, the account password will be asked every five minutes in order to perform sudo operations.
+
+If you want to remove the password verification, you can simply add the “NOPASSWD” option.
+```sh
+username       ALL=(ALL:ALL) NOPASSWD:ALL
+```
+- switch to the newly added user:
+```sh
+su - username
+```
 5. Now you can switch to your new user.
    ```sh
    su — username
