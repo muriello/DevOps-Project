@@ -76,7 +76,7 @@ Now we can push our changes to Github repository we created. Before that create 
 # Deploy NodeJS App on Server
 Now we need to deploy our application in our ec2 server. to do that, we are going to :
 
-1. ***Create Our Server [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide_to_create_Amazon_EC2_Instances.md)*** and login using Mobaxterm 
+1. ***Create Our Server [Amazon EC2 instance](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/AWS/Guide%20to%20create%20Amazon%20EC2%20Instances.md)*** and login using Mobaxterm 
 
 2. Open your terminal on your local machine and login into your nodejs-app server as a root user:
    ```sh

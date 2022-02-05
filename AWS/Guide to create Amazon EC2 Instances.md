@@ -150,4 +150,3 @@ We are going to connect to AWS EC2 Instance using MobaXTerm. (Download and insta
 ## And you are in?
 
 
-
