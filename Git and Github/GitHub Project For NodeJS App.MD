@@ -173,14 +173,7 @@ su - username
    cd node-app
    npm install --production
    ```
-   Before we can access our app on the browser we need to complete an additional step. As you recall we are running our app on port 7000 by default. EC2 firewall blocks clients accessing any port but 80. Thankfully Ubuntu includes UFW firewall configuration tool that adds firewall rule to unblock specific ports.
 
-9. Let’s unblock port 7000 and run our app: 
-   ```sh
-   sudo ufw allow 7000 # this will open port 7000 to access via web
-   ```
-
-Now our app is running through PM2 as node-app. just got to **http://SERVER.IP:7000** to check that.
 
 # Running Node App Forever
 Starting node app like above is good for development purposes but not in production. In case our node instance crash we need a process that will do the auto restart. We are going to use [PM2](https://pm2.keymetrics.io/docs/usage/quick-start/) module to help us with this task. PM2 is a general purpose process manager and a production runtime for Node.js apps with a built-in Load Balancer. Let’s install PM2 and start our node instance:
@@ -189,5 +182,14 @@ Starting node app like above is good for development purposes but not in product
    sudo npm install pm2@latest -g
    pm2 start index.js
    ```
+
+Before we can access our app on the browser we need to complete an additional step. As you recall we are running our app on port 7000 by default. EC2 firewall blocks clients accessing any port but 80. Thankfully Ubuntu includes UFW firewall configuration tool that adds firewall rule to unblock specific ports.
+
+Let’s unblock port 7000 and run our app: 
+   ```sh
+   sudo ufw allow 7000 # this will open port 7000 to access via web
+   ```
+
+Now our app is running through PM2 as node-app. just got to **http://SERVER.IP:7000** to check that.
 
    Now our node server is configured and running.
