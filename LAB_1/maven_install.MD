@@ -3,7 +3,7 @@ Maven is a code build tool which used to convert your code to an artifact. this 
 
 
 #### Prerequisites
-1. Jenkins server
+1. [Jenkins server](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/LAB_1/Jenkins_Installation.MD)
 2. The Gremlin libraries require Java 8. install java 8 if you dont have it installed yet. 
    - Enter the following to set Java 8 as the default runtime on your EC2 instance.
     ```sh

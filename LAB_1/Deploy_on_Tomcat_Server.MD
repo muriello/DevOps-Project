@@ -3,8 +3,8 @@
 
 ### Pre-requisites
 
-1. Jenkins server 
-2. Tomcat Server 
+1. [Jenkins server](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/LAB_1/Jenkins_Installation.MD) 
+2. [Tomcat Server](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/LAB_1/tomcat_installation.MD)
 
 ### Adding Deployment steps
 

@@ -6,7 +6,7 @@ We know how to use work with each and Git, Jenkins independently. What if you wa
 
 #### Pre-requisites
 
-1. Jenkins server 
+1. [Jenkins server](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/LAB_1/Jenkins_Installation.MD)
 
 
 ### Steps to create "My_First_Maven_Build" Jenkin job
