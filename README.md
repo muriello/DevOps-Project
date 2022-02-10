@@ -16,6 +16,7 @@ yum update -y
 - Install the Java. 
 ```
 yum -y install java-1.8.0-openjdk
+amazon-linux-extras install epel -y 
 java -version
 ```
 - Configure the Java Home Location.
