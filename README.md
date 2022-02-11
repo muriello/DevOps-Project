@@ -13,16 +13,14 @@ sudo su
 ```
 yum update -y
 ```
+
 - Install the Java. 
 ```
-yum -y install java-1.8.0-openjdk
 amazon-linux-extras install epel -y 
+amazon-linux-extras install java-openjdk11
 java -version
 ```
-- Configure the Java Home Location.
-```
-JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64
-```
+
 - Download and Install Jenkins. 
 ```
 yum -y install wget
@@ -35,7 +33,9 @@ yum -y install jenkins
 systemctl start jenkins
 chkconfig jenkins on
 ```
-- Access the Jenkins. 
+- Access the Jenkins.
+
+By default jenkins runs at port 8080, You can access jenkins at
 ```
-Copy the Public IP of Jenkins
+http://YOUR-SERVER-PUBLIC-IP:8080
 ```
