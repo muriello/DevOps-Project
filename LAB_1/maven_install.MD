@@ -21,27 +21,44 @@ Maven is a code build tool which used to convert your code to an artifact. this 
 #### [Install Maven on Jenkins](https://linuxize.com/post/how-to-install-apache-maven-on-centos-8/)
 1. Download maven packages https://maven.apache.org/download.cgi onto Jenkins server. In this case, I am using /opt/maven as my installation directory
 
- - Link : https://linuxize.com/post/how-to-install-apache-maven-on-centos-8/
+ - Link :  https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
  
     ```sh
      # Creating maven directory under /opt
-     mkdir /opt/maven
-     cd /opt/maven
-     # downloading maven version 3.6.0
-     wget https://dlcdn.apache.org/maven/maven-3/3.8.4/source/apache-maven-3.8.4-src.tar.gz
-     tar -xvzf apache-maven-3.8.4-src.tar.gz
-     ```
+     cd /opt
+    ```
+    ```sh
+     # downloading maven version 3.8.4
+     wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
+     tar -xvzf apache-maven-3.8.4-bin.tar.gz
+    ```
+    ```sh
+     # unzip the file 
+     tar -xvzf apache-maven-3.8.4-bin.tar.gz
+    ```
+
+    ```sh
+     # move the unzipped folder to maven 
+     mv apache-maven-3.8.4 maven
+    ```
 	
 1. Setup M2_HOME and M2 paths in .bash_profile of the user and add these to the path variable
+   find JAVA_HOME path and also incode in the .bash_profile  ```find / -name java-11*```
+    
    ```sh
    vi ~/.bash_profile
-   M2_HOME=/opt/maven/apache-maven-3.8.4
-   M2=$M2_HOME/bin
-   PATH=<Existing_PATH>:$M2_HOME:$M2
+   M2_HOME=/opt/maven
+   M2=/opt/maven/bin
+   JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.13.0.8-1.amzn2.0.3.x86_64
+   PATH=<Existing_PATH>:$JAVA_HOME:$M2_HOME:$M2
    ```
 #### Checkpoint 
-1. logoff as root and login back in to check maven version
-  
+1. type the following command to reload the .bash_profile
+
+    ```sh
+    source .bash_profile
+    ```
+ Now check for maven version 
     ```sh
     mvn --version
     ```
