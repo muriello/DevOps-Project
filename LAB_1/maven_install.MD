@@ -19,7 +19,7 @@ Maven is a code build tool which used to convert your code to an artifact. this 
    ```
 
     ```sh
-     # Rename the apache-maven-`<version>` folder to maven 
+     # Rename the apache-maven-<version> folder to maven 
      mv apache-maven-3.8.4 maven
     ```
 	
