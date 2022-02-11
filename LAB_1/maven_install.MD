@@ -3,42 +3,23 @@ Maven is a code build tool which used to convert your code to an artifact. this 
 
 
 #### Prerequisites
+
 1. [Jenkins server](https://github.com/ValaxyTechDevops/DevOps-Project/blob/master/LAB_1/Jenkins_Installation.MD)
-2. The Gremlin libraries require Java 8. install java 8 if you dont have it installed yet. 
-   - Enter the following to set Java 8 as the default runtime on your EC2 instance.
-    ```sh
-    sudo /usr/sbin/alternatives --config java
 
-    #When prompted, enter the number for Java 8.
-    ```
-  - When prompted, enter the number for Java 8.
-  - Enter the following to set Java 8 as the default compiler on your EC2 instance.
-    ```sh
-    sudo /usr/sbin/alternatives --config javac
 
-    #When prompted, enter the number for Java 8.
-    ```
 #### [Install Maven on Jenkins](https://linuxize.com/post/how-to-install-apache-maven-on-centos-8/)
-1. Download maven packages https://maven.apache.org/download.cgi onto Jenkins server. In this case, I am using /opt/maven as my installation directory
-
- - Link :  https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
- 
-    ```sh
-     # change directory to /opt
-     cd /opt
-    ```
-    ```sh
-     # downloading maven version 3.8.4
-     wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
-     tar -xvzf apache-maven-3.8.4-bin.tar.gz
-    ```
-    ```sh
-     # unzip the file 
-     tar -xvzf apache-maven-3.8.4-bin.tar.gz
-    ```
+1. Download tomcat packages from  https://maven.apache.org/download.cgi onto /opt on EC2 instance
+   > Note: Make sure you change `<version>` with the maven version which you download. 
+   > I am downloading maven version 3.8.4
+   ```sh 
+   # Create tomcat directory
+   cd /opt
+   wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
+   tar -xvzf apache-maven-3.8.4-bin.tar.gz
+   ```
 
     ```sh
-     # move the unzipped folder to maven 
+     # Rename the apache-maven-`<version>` folder to maven 
      mv apache-maven-3.8.4 maven
     ```
 	
