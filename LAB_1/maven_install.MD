@@ -24,7 +24,7 @@ Maven is a code build tool which used to convert your code to an artifact. this 
  - Link :  https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
  
     ```sh
-     # Creating maven directory under /opt
+     # change directory to /opt
      cd /opt
     ```
     ```sh
