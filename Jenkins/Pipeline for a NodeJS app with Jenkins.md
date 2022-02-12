@@ -286,15 +286,9 @@ sudo cp -r ~/.ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa
 ```sh
 cat ~/.ssh/id_rsa.pub
 ```
+- This would display an output containing the key starting with ssh-rsa. Copy it! 
 
-- You’ll need to manually add the contents of the id_rsa.pub file to the remote server’s ~/.ssh/authorized_keys file. On the source method you can display the contents of the id_rsa.pub file by using the vi editor or cat command:
-
-```sh
-cat ~/.ssh/id_rsa.pub
-```
-
-- This would display an output containing the key starting with ssh-rsa. Copy it! Next on the remote server (appserver), login and create the .ssh file if it does not exist.
-
+- You’ll need to manually add the contents of the id_rsa.pub file to the remote server’s ~/.ssh/authorized_keys file. On the source method you can display the contents of the id_rsa.pub file by using the vi editor or cat command:  login and create the .ssh file if it does not exist.
 ```sh
 mkdir -p ~/.ssh
 ```
