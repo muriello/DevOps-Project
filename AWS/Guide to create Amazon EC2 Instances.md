@@ -14,7 +14,7 @@ First of all, we need to login into the AWS Console, access using this URL: *htt
 
 <img src="/images/aws_sign_in1.png">
 
-### *Step 2*
+### *Step 2*.
 
 It’s going to open a page requesting your username or email. Type your password.
 
